@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0%;
+}
+
+body {
+  font-style: normal;
+  background-color: #ffffc7;
+  text-align: center;
+}
+
+.font-teachers {
+  font-family: "Teachers", sans-serif;
+}
+
+.header {
+  color: #292925;
+  padding-top: 2.5rem;
+  font-weight: 500;
+}
+
+.turn {
+  color: #b0413e;
+  font-size: large;
+  font-weight: 600;
+
+  height: 1.5rem;
+}
+
+.container {
+  height: 70vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game {
+  height: 60vmin;
+  width: 60vmin;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5vmin;
+}
+
+.box {
+  font-family: "Kalam", cursive;
+  font-weight: 300;
+  font-size: 8vmin;
+  color: #b0413e;
+
+  height: 18vmin;
+  width: 18vmin;
+
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+
+  background-color: #ffffc7;
+}
+
+#reset-button {
+  font-size: 1rem;
+  color: white;
+
+  border: none;
+  border-radius: 1rem;
+
+  background-color: #191913;
+
+  padding: 1rem;
+
+  cursor: pointer;
+}
+
+.rights-text {
+  color: #585856;
+  font-size: small;
+  margin-top: 1rem;
+}
+
+.rights-text a {
+  color: #585856;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.1rem 0;
+}
+.rights-text a:hover {
+  color: #585856;
+  border-bottom: solid 1px #b0413e;
+}
+
+#dark {
+  background-color: #292925;
+
+  border: none;
+  border-radius: 999px;
+
+  height: 3rem;
+  width: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  cursor: pointer;
+}
