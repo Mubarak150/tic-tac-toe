@@ -8,6 +8,16 @@ let boxes = document.querySelectorAll(".box"); // -------------- all the input b
 let resetBtn = document.querySelector("#reset-button"); // ----- reset/newgame button
 let turnTag = document.querySelector(".turn"); // -------------- text showing whose turn is it or who won?
 
+// ------------------------------------------------------------- WINNING POP UP COMPONENTS
+let popupContainer = document.querySelector(".popup");
+let popup = document.querySelector(".popup-card");
+let popupText = document.querySelector(".popup-text");
+let newGameBtn = document.querySelector("#newGame");
+let hidePopupBtn = document.querySelector("#hidePopup");
+
+let showPopup = false;
+// ------------------------------------------------------------- WINNING POP UP COMPONENTS [END]
+
 let modeImage = document.querySelector("#dark-img");
 let moon =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAfxJREFUSEvFlbFr1FAcx7/ftHhDB0FMLtzLU1wUFHTSQRRcSotYHBxEXHQUwUlt8R8QPNxcXAqddHIRS5cOgtRJkKrdziHJK0kqXaSDkMtPI/a8C3e568Xi25L8ft/P++X33u9L7PPiPuujFBBFkTORpjeFnHGUmh1nMwMBSRDcE7JJ4ACAJcfzbv0TQBRFU1aavgAwtytI8oat1MvKABGxtoxZATDdLUaRS7bWbysDkiBYAPm4KCQi1+pav6oE2G61Dqa1mgEwVRSiSNPW+mElQGLMXYg8GyAS2EodJSl7hXROURKGrwFcGShAXnSUelcFEAJQJQKfWaudt237+14gvysQEW4ZkwKwypIJrLYnJ6+6rrszKqTzi+Iw/PHnUg3LbdGyrtuNxodhgfn3vz0Igq8gj42SBKAt5COn0Wj2a/y2MUcOKeX3AsJwEcDtEQG7YXk/1gX4AmCHwHEA50AuOkot9ABi35+hZeW3uPLKRE67Wn/qAeQPSRh+BHCmCkFENupan+rMsW6xb75/NrOs9wAmxoRIBky7nrfaF5C/jI25n4+GcQBCzteVetKd29cPYmMeUCQfeqNW0iYwb3ve0+LGBhuOMRcky56TPDmkmnUh79SVWusXV2qZuT/Em5tzFLlM4ESh9I1fR3L5sFJvyobg/zX9cRpdzPkJldKlGcsHnd4AAAAASUVORK5CYII=";
@@ -47,7 +57,24 @@ const handleWin = (pattern, player) => {
     box.disabled = true;
   });
 
-  resetBtn.innerText = "Play New Game";
+  // SHOW POP UP
+  popupContainer.style.display = "flex";
+  popupText.innerText = `${player} won!!!`;
+  darkBtn.disabled = true;
+};
+
+// ---------------------------------------------------------------- RESTART THE GAME ANEW
+const restartGame = () => {
+  boxes.forEach((box) => {
+    box.disabled = false;
+    box.innerText = "";
+    box.style.color = "#b0413e";
+    box.style.backgroundColor = "#ffffc7";
+  });
+
+  turnOfO = true;
+  turnTag.innerText = `O's turn now`;
+  resetBtn.innerText = "Reset Game";
 };
 
 // ---------------------------------------------------------------- check if there is a winner.
@@ -90,18 +117,19 @@ boxes.forEach((box) => {
   });
 });
 
-// ---------------------------------------------------------------- reset or renew game button handler. i.e. resume the origianl state.
-resetBtn.addEventListener("click", () => {
-  boxes.forEach((box) => {
-    box.disabled = false;
-    box.innerText = "";
-    box.style.color = "#b0413e";
-    box.style.backgroundColor = "#ffffc7";
-  });
+// -------------------------------------------------------------------  RESET, NEW GAME, and HIDE BUTTONS handler.
+resetBtn.addEventListener("click", restartGame);
 
-  turnOfO = true;
-  turnTag.innerText = `O's turn now`;
-  resetBtn.innerText = "Reset Game";
+newGameBtn.addEventListener("click", () => {
+  popupContainer.style.display = "none";
+  darkBtn.disabled = false;
+  restartGame();
+});
+
+hidePopupBtn.addEventListener("click", () => {
+  popupContainer.style.display = "none";
+  darkBtn.disabled = false;
+  resetBtn.innerText = "New Game";
 });
 
 // ---------------------------------------------------------------- DARK MODE .. must there be an EASY way to do it ??

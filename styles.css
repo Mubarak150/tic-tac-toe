@@ -62,7 +62,8 @@ body {
   background-color: #ffffc7;
 }
 
-#reset-button {
+#reset-button,
+#newGame {
   font-size: 1rem;
   color: white;
 
@@ -70,6 +71,20 @@ body {
   border-radius: 1rem;
 
   background-color: #191913;
+
+  padding: 1rem;
+
+  cursor: pointer;
+}
+
+#hidePopup {
+  font-size: 1rem;
+  color: white;
+
+  border: none;
+  border-radius: 1rem;
+
+  background-color: #b0413e;
 
   padding: 1rem;
 
@@ -111,4 +126,40 @@ body {
   right: 1rem;
 
   cursor: pointer;
+}
+
+/* POP UP  */
+.popup {
+  position: absolute;
+  top: 0;
+  height: 98vh;
+  width: 98vw;
+
+  background-color: #46434367;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.popup-card {
+  height: 300px;
+  width: 380px;
+  background-color: #ffffc7;
+  border: #e7e7e7 solid 1px;
+  border-radius: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.popup-text {
+  font-family: "Teachers", sans-serif;
+
+  font-size: xx-large;
+  font-weight: 600;
 }
