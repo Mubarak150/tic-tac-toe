@@ -133,6 +133,7 @@ const restartGame = () => {
 
 // ---------------------------------------------------------------- check if there is a winner.
 const checkWinner = (opponent = "dual") => {
+  won = false;
   // -------------------------------------------------------------- look in all the winPatternsf any one satisfies?
   for (let pattern of winPatterns) {
     let position1 = boxes[pattern[0]];
@@ -147,12 +148,13 @@ const checkWinner = (opponent = "dual") => {
         position1Value === position2Value &&
         position2Value === position3Value
       ) {
+        won = true;
         handleWin(pattern, position1Value);
       }
     }
   }
   // if the user is not a winner yet then check if computer, if yes then make a move:
-  if (opponent == "computer") {
+  if (opponent == "computer" && !won) {
     turnTag.innerText = "computer is thinking";
     setTimeout(chooseBoxByComputer, 700);
   }
@@ -183,7 +185,7 @@ boxes.forEach((box) => {
 });
 
 let chooseBoxByComputer = () => {
-  console.log("computer");
+  let i = 0;
   let marked = false;
   let empties;
   let myBoxes;
@@ -196,45 +198,50 @@ let chooseBoxByComputer = () => {
     opponentBoxes = pattern.filter((box) => boxes[box].innerText == "X");
     if (myBoxes.length == 2 && opponentBoxes.length == 0) {
       empties = pattern.filter((box) => boxes[box].innerText == "");
-      marked = true;
+
       completedPattern = pattern;
     }
-    if (empties) {
+    if (empties && i == 0) {
       boxes[empties[0]].innerText = "O";
+      i++;
+      break;
     }
   }
 
   if (completedPattern.length > 0) {
+    marked = true;
     handleWin(completedPattern, "O"); // computer i.e. O wins...
-  }
-
-  if (!marked) {
+  } else {
     // 2. blocking any win of opponent..
+
     for (let pattern of winPatterns) {
       myBoxes = pattern.filter((box) => boxes[box].innerText == "O");
       opponentBoxes = pattern.filter((box) => boxes[box].innerText == "X");
       if (opponentBoxes.length == 2 && myBoxes.length == 0) {
         empties = pattern.filter((box) => boxes[box].innerText == "");
-        marked = true;
       }
-      if (empties) {
+      if (empties && i == 0) {
         boxes[empties[0]].innerText = "O";
+        i++;
+        marked = true;
       }
     }
   }
-
   if (!marked) {
     // 3. targetting empty corners ELSE taking the center.
     let corners = [0, 2, 6, 8];
     let emptyCorners = corners.filter((box) => boxes[box].innerText == "");
     let randomCorner = Math.floor(Math.random() * emptyCorners.length);
-    // console.log(randomCorner);
-    if (emptyCorners.length > 0) {
-      marked = true;
-      boxes[emptyCorners[randomCorner]].innerText = "O";
-    } else if (boxes[5].innerText == "") {
-      marked = true;
-      boxes[5].innerText == "O"; // taking the center
+    if (!marked) {
+      if (emptyCorners.length > 0 && i == 0) {
+        marked = true;
+        i++;
+        boxes[emptyCorners[randomCorner]].innerText = "O";
+      } else if (boxes[5].innerText == "" && i == 0) {
+        marked = true;
+        i++;
+        boxes[5].innerText == "O"; // taking the center
+      }
     }
   }
 
